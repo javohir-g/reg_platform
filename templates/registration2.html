@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yengillashtirilgan ro'yxatdan o'tish</title>
+    <link rel="stylesheet" href="../static/css/registration2.css">
+</head>
+<body>
+    <nav>
+        <a href="/registration">Ro'yxatdan o'tish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <h1>Yengillashtirilgan ro'yxatdan o'tish</h1>
+        <form action="/registration2" method="post">
+            <div class="form-group">
+                <label>Pasport raqami:</label>
+                <input type="text" name="user_passport_id" required>
+            </div>
+
+            <div class="form-group">
+                <label>Telefon raqami:</label>
+                <input type="tel" name="user_phone_number" required>
+            </div>
+
+            <div class="form-group">
+                <label>Migratsiya qilish davlati:</label>
+                <input type="text" name="migrating_country" required>
+            </div>
+
+            <button type="submit">Yuborish</button>
+        </form>
+    </div>
+</body>
+</html>

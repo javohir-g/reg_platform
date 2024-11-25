@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007BFF;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    color: #333333;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555555;
+}
+
+form input[type="text"],
+form input[type="tel"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="tel"]:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+form button {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+}

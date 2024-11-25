@@ -1,0 +1,156 @@
+/* all_clients.css */
+
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007BFF;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #333333;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.search-controls input {
+    padding: 10px 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: 200px;
+    transition: border-color 0.3s;
+}
+
+.search-controls input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.filter-controls {
+    position: relative;
+}
+
+.filter-btn {
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #f0f0f0;
+    border-color: #007BFF;
+}
+
+.filter-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.filter-menu label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.filter-menu input {
+    margin-right: 8px;
+}
+
+.download-btn, .sort-btn {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover, .sort-btn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-controls input {
+        width: 100%;
+    }
+
+    .download-btn, .sort-btn {
+        width: 100%;
+    }
+}

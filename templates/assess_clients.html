@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Muvaffaqiyatli mijozlar ro'yxati</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/assess_clients.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/registration">Ro'yxatdan o'tish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <h1>Muvaffaqiyatli mijozlar ro'yxati</h1>
+        <button onclick="downloadExcel('assess')" class="download-btn">Excel faylini yuklab olish</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ism</th>
+                    <th>Pasport</th>
+                    <th>Telefon</th>
+                    <th>Migratsiya qilish davlati</th>
+                    <th>Holat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.user_passport_id }}</td>
+                    <td>{{ client.user_phone_number }}</td>
+                    <td>{{ client.migrating_country }}</td>
+                    <td>
+                        <span class="status-badge">Yaroqli</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function downloadExcel(page) {
+            window.location.href = `/download_excel/${page}`;
+        }
+    </script>
+</body>
+</html>

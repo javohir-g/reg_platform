@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Mijozni ro'yxatdan o'tkazish</title>
+    <link rel="stylesheet" href="../static/css/registration.css">
+</head>
+<body>
+    <nav>
+        <a href="/registration">Ro'yxatdan o'tish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <h1>Yangi mijozni ro'yxatdan o'tkazish</h1>
+        <form action="/registration" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Ism:</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Mijozning fotosi:</label>
+                <input type="file" name="user_photo" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tug'ilgan sana:</label>
+                <input type="date" name="date_of_birth" required>
+            </div>
+
+            <div class="form-group">
+                <label>Pasport raqami:</label>
+                <input type="text" name="user_passport_id" required>
+            </div>
+
+            <div class="form-group">
+                <label>Pasport fotosi:</label>
+                <input type="file" name="passport_photo" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label>Telefon raqami:</label>
+                <input type="tel" name="user_phone_number" required>
+            </div>
+
+            <div class="form-group">
+                <label>Migratsiya qilish davlati:</label>
+                <input type="text" name="migrating_country" required>
+            </div>
+
+            <button type="submit">Ro'yxatdan o'tkazish</button>
+        </form>
+    </div>
+</body>
+</html>

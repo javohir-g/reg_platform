@@ -1,0 +1,95 @@
+<!-- referral.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Медицинское направление</title>
+    <link rel="stylesheet" href="referral.css">
+</head>
+<body>
+    <div class="referral">
+        <div class="header">
+            <h1>НАПРАВЛЕНИЕ НА МЕДИЦИНСКОЕ ОБСЛЕДОВАНИЕ</h1>
+            <p class="date">Дата: {{ current_date }}</p>
+        </div>
+
+        <div class="content">
+            <p><strong>Пациент:</strong> {{ client_name }}</p>
+            <p><strong>Номер паспорта:</strong> {{ passport_id }}</p>
+            <p><strong>Дата рождения:</strong> {{ date_of_birth }}</p>
+            <p><strong>Страна миграции:</strong> {{ migrating_country }}</p>
+
+
+            <div class="footer">
+                <div class="stamp-place">
+                    Место для QR кода
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- referral.css -->
+<style>
+.referral {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.date {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.content {
+    line-height: 1.6;
+}
+
+.examination-list {
+    margin: 20px 0;
+}
+
+.examination-list h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.examination-list ul {
+    margin-left: 20px;
+}
+
+.footer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.stamp-place {
+    border: 1px dashed #999;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.signature {
+    margin-top: 20px;
+}
+</style>

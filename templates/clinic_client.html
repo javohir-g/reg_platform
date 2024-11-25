@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Klinikadagi mijozlar</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/clinic_client.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/registration">Ro'yxatdan o'tish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <h1>Tekshiruv uchun mijozlar</h1>
+        <button onclick="downloadExcel('clinic')" class="download-btn">Excel faylini yuklab olish</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Ism</th>
+                    <th>Pasport</th>
+                    <th>Holat</th>
+                    <th>Natija</th>
+                    <th>Baholash</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td><img src="../static/photos/{{ client.user_passport_id }}_user.jpg" alt="Foydalanuvchi fotosi" style="max-width: 100px; height: auto;"></td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.user_passport_id }}</td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox"
+                                   onchange="updateStatus({{ client.user_id }})"
+                                   {% if client.status %}checked{% endif %}>
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="file"
+                               onchange="uploadResult({{ client.user_id }}, this)"
+                               accept=".pdf">
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox"
+                                   onchange="updateAssess({{ client.user_id }})"
+                                   {% if client.assess %}checked{% endif %}>
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function updateStatus(userId) {
+            try {
+                const response = await fetch(`/update_status/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Holatni yangilashda xatolik');
+                }
+
+                const data = await response.json();
+                console.log('Holat yangilandi:', data);
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Holatni yangilashda xatolik yuz berdi');
+            }
+        }
+
+        async function updateAssess(userId) {
+            try {
+                const response = await fetch(`/update_assess/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Baholashni yangilashda xatolik');
+                }
+
+                const data = await response.json();
+                console.log('Baholash yangilandi:', data);
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Baholashni yangilashda xatolik yuz berdi');
+            }
+        }
+
+        async function uploadResult(userId, fileInput) {
+            if (!fileInput.files || fileInput.files.length === 0) {
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch(`/upload_result/${userId}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Faylni yuklashda xatolik');
+                }
+
+                const data = await response.json();
+                console.log('Fayl yuklandi:', data);
+                alert('Fayl muvaffaqiyatli yuklandi');
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Faylni yuklashda xatolik yuz berdi');
+            }
+        }
+
+        function downloadExcel(page) {
+            window.location.href = `/download_excel/${page}`;
+        }
+    </script>
+</body>
+</html>

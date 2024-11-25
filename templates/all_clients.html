@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Barcha mijozlar</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/all_clients.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/registration">Ro'yxatdan o'tish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <h1>Barcha mijozlarning ma'lumotlar bazasi</h1>
+
+        <div class="controls">
+            <div class="search-controls">
+                <input type="text" id="nameSearch" placeholder="Ism bo'yicha qidirish">
+                <input type="text" id="passportSearch" placeholder="Pasport bo'yicha qidirish">
+            </div>
+
+            <div class="filter-controls">
+                <button onclick="toggleFilters()" class="filter-btn">Filtrlar</button>
+                <div id="filterMenu" class="filter-menu" style="display: none;">
+                    <label>
+                        <input type="checkbox" onchange="filterClients('status')"> Faqat tekshiruvdan o'tganlar
+                    </label>
+                    <label>
+                        <input type="checkbox" onchange="filterClients('assess')"> Faqat yaroqli
+                    </label>
+                </div>
+            </div>
+
+            <button onclick="downloadExcel('all')" class="download-btn">Excel faylini yuklab olish</button>
+            <button onclick="sortTable()" class="sort-btn">Saralash</button>
+        </div>
+
+        <table id="clientsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ism</th>
+                    <th>Tug'ilgan sana</th>
+                    <th>Pasport</th>
+                    <th>Telefon</th>
+                    <th>Davlat</th>
+                    <th>Ro'yxatga olish sanasi</th>
+                    <th>Holat</th>
+                    <th>Yaroqlilik</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.user_id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.date_of_birth.strftime('%d.%m.%Y') }}</td>
+                    <td>{{ client.user_passport_id }}</td>
+                    <td>{{ client.user_phone_number }}</td>
+                    <td>{{ client.migrating_country }}</td>
+                    <td>{{ client.reg_date.strftime('%d.%m.%Y') }}</td>
+                    <td>{{ "O'tgan" if client.status else "O'tmagan" }}</td>
+                    <td>{{ "Yaroqli" if client.assess else "Yaroqsiz" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function downloadExcel(page) {
+            window.location.href = `/download_excel/${page}`;
+        }
+
+        function toggleFilters() {
+            const menu = document.getElementById('filterMenu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function filterClients(type) {
+            const table = document.getElementById('clientsTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const statusCell = rows[i].cells[7].textContent;
+                const assessCell = rows[i].cells[8].textContent;
+
+                let show = true;
+                if (type === 'status' && statusCell !== 'O\'tgan') show = false;
+                if (type === 'assess' && assessCell !== 'Yaroqli') show = false;
+
+                rows[i].style.display = show ? '' : 'none';
+            }
+        }
+
+        function searchTable() {
+            const nameInput = document.getElementById('nameSearch').value.toLowerCase();
+            const passportInput = document.getElementById('passportSearch').value.toLowerCase();
+            const table = document.getElementById('clientsTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const nameCell = rows[i].cells[1].textContent.toLowerCase();
+                const passportCell = rows[i].cells[3].textContent.toLowerCase();
+
+                const nameMatch = nameCell.includes(nameInput);
+                const passportMatch = passportCell.includes(passportInput);
+
+                rows[i].style.display = (nameMatch && passportMatch) ? '' : 'none';
+            }
+        }
+
+        let sortAscending = true;
+        function sortTable() {
+            const table = document.getElementById('clientsTable');
+            const rows = Array.from(table.rows).slice(1);
+
+            rows.sort((a, b) => {
+                const aVal = a.cells[1].textContent;
+                const bVal = b.cells[1].textContent;
+                return sortAscending ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+
+            sortAscending = !sortAscending;
+
+            const tbody = table.tBodies[0];
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Qidiruv uchun hodisalar qo'shish
+        document.getElementById('nameSearch').addEventListener('input', searchTable);
+        document.getElementById('passportSearch').addEventListener('input', searchTable);
+    </script>
+</body>
+</html>

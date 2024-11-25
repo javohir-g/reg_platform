@@ -1,0 +1,50 @@
+<!-- templates/registration_success.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация успешна</title>
+    <link rel="stylesheet" href="../static/css/registration.css">
+    <script>
+        // Функция для автоматической загрузки направления
+        function autoDownload() {
+            if ({{ download|tojson }}) {
+                window.location.href = '/download_referral/{{ user_id }}';
+            }
+        }
+
+        // Перенаправление на страницу регистрации через 5 секунд
+        function redirectToRegistration() {
+            setTimeout(() => {
+                window.location.href = '/registration';
+            }, 5000);
+        }
+
+        // Запускаем обе функции при загрузке страницы
+        window.onload = function() {
+            autoDownload();
+            redirectToRegistration();
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="/registration">Roʻyxatdan oʻtish</a>
+        <a href="/registration2">ID raqami bo'yicha</a>
+        <a href="/clinic_client">Klinika</a>
+        <a href="/assess_clients">Tibbiy ko'rikdan muvaffaqiyatli o'tdi</a>
+        <a href="/all_clients">Barcha mijozlar</a>
+    </nav>
+
+    <div class="container">
+        <div class="success-message">
+            <h1>Регистрация успешно завершена!</h1>
+            <p>Загрузка направления начнется автоматически...</p>
+            <p>Вы будете перенаправлены на страницу регистрации через 5 секунд.</p>
+            <p>Если загрузка не началась автоматически,
+                <a href="/download_referral/{{ user_id }}">нажмите здесь</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
